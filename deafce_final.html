@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM COMPROMISED | H4CK3D</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background: #0a0e27;
+            position: relative;
+            color: #00ff88;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Hero section - dark with centered logo */
+        .hero-section {
+            width: 100%;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0d1b2a 100%);
+            z-index: 0;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 10px;
+            min-height: auto;
+            position: relative;
+        }
+
+        /* Logo container */
+        .logo-container {
+            position: relative;
+            width: auto;
+            height: auto;
+            border: none;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: none;
+            background: transparent;
+            animation: none;
+            z-index: 1;
+            padding: 0;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.5), inset 0 0 30px rgba(0, 255, 136, 0.1); }
+            50% { box-shadow: 0 0 70px rgba(0, 255, 136, 0.7), inset 0 0 40px rgba(0, 255, 136, 0.2); }
+        }
+
+        .logo-image {
+            width: 90%;
+            max-width: 550px;
+            height: auto;
+            border-radius: 0;
+            object-fit: contain;
+            border: none;
+            box-shadow: none;
+            display: block;
+        }
+
+        /* Image overlay - subtle decorative lines */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(0, 255, 136, 0.03) 50%,
+                transparent 100%
+            );
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Lightning canvas */
+        #lightningCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Thunder flash */
+        .thunder-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        @keyframes thunderFlash {
+            0%, 100% { background: rgba(255, 255, 255, 0); }
+            50% { background: rgba(255, 255, 255, 0.4); }
+        }
+
+        .thunder-strike {
+            animation: thunderFlash 0.08s ease-out;
+        }
+
+        /* Mouse trail canvas */
+        #trailCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        /* Glow bar separator */
+        .glow-bar {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #00ff88 10%,
+                #00ffff 50%,
+                #00ff88 90%,
+                transparent
+            );
+            box-shadow: 0 0 15px #00ff88, 0 0 30px #00ffff, inset 0 0 15px rgba(0, 255, 136, 0.3);
+            z-index: 4.5;
+            filter: blur(1px);
+            margin: 15px 0;
+        }
+
+        /* Bottom content section */
+        .content-section {
+            width: 100%;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0d1b2a 100%);
+            z-index: 5;
+            padding: 25px 25px 25px 25px;
+            position: relative;
+        }
+
+        /* Scanlines */
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 136, 0.02),
+                rgba(0, 255, 136, 0.02) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            animation: scanlines 0.15s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Main heading */
+        .main-title {
+            font-size: 2em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00ff88 0%, #00ffff 50%, #0088ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1px;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.2));
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.2)); }
+            50% { filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.4)); }
+        }
+
+        .subtitle-line {
+            font-size: 0.8em;
+            color: #ff1744;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px #ff1744;
+            animation: redPulse 1s infinite;
+        }
+
+        @keyframes redPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Info boxes */
+        .info-box {
+            background: rgba(0, 255, 136, 0.05);
+            border: 2px solid #00ff88;
+            border-radius: 0;
+            padding: 12px;
+            margin-bottom: 8px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.1), inset 0 0 20px rgba(0, 255, 136, 0.02);
+        }
+
+        .info-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            animation: shimmer 3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .info-box h2 {
+            color: #00ffff;
+            font-size: 0.95em;
+            margin-bottom: 6px;
+            text-shadow: 0 0 10px #00ffff;
+            letter-spacing: 1.2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-box p {
+            color: #00ff88;
+            line-height: 1.3;
+            font-size: 0.8em;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Code blocks */
+        .code-line {
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 3px solid #ff1744;
+            padding: 7px 10px;
+            margin: 3px 0;
+            color: #ffaa00;
+            font-size: 0.7em;
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+            overflow-x: auto;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(255, 23, 68, 0.2);
+        }
+
+        .code-line::before {
+            content: '> ';
+            color: #ff1744;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 8px;
+            margin: 8px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            background: rgba(0, 255, 136, 0.08);
+            border: 2px solid #00ff88;
+            padding: 9px;
+            text-align: center;
+            border-radius: 2px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
+        }
+
+        .stat-card:hover {
+            background: rgba(0, 255, 136, 0.12);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+            border-color: #00ffff;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: scanTop 2s infinite;
+        }
+
+        @keyframes scanTop {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .stat-label {
+            color: #ffaa00;
+            font-size: 0.58em;
+            letter-spacing: 0.6px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px #ffaa00;
+        }
+
+        .stat-value {
+            color: #00ffff;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ffff;
+            letter-spacing: 0.2px;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: linear-gradient(135deg, #00ff88 0%, #00ffaa 100%);
+            color: #0a0e27;
+            border: 2px solid #00ff88;
+            padding: 8px 18px;
+            font-size: 0.7em;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            border-radius: 2px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: left 0.3s;
+        }
+
+        button:hover {
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.6), 0 0 60px rgba(0, 255, 255, 0.3);
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #00ffaa 0%, #00ffff 100%);
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        /* Falling text */
+        .falling-text {
+            position: fixed;
+            font-size: 1.1em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            pointer-events: none;
+            animation: fall 7s linear forwards;
+            z-index: 6;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 0;
+                transform: translateY(-80px);
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Decorative elements - hidden in flow layout */
+        .corner-decoration {
+            display: none;
+        }
+
+        .corner-top-left {
+            display: none;
+        }
+
+        .corner-top-right {
+            display: none;
+        }
+
+        /* Status bar */
+        .status-bar {
+            width: 100%;
+            background: linear-gradient(90deg, rgba(10, 14, 39, 0.98) 0%, rgba(26, 31, 58, 0.98) 50%, rgba(13, 27, 42, 0.98) 100%);
+            border-top: 2px solid #00ff88;
+            border-bottom: 2px solid #00ff88;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 10;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 -5px 30px rgba(0, 255, 136, 0.2), 0 5px 30px rgba(0, 255, 136, 0.1);
+            margin-top: 15px;
+            font-size: 0.85em;
+        }
+
+        .status-item {
+            color: #00ff88;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75em;
+            letter-spacing: 0.8px;
+            text-shadow: 0 0 5px #00ff88;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            background: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff88;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px #00ff88; }
+            50% { opacity: 0.4; box-shadow: 0 0 5px #00ff88; }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00ff88, #00ffff);
+            border-radius: 6px;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00ffaa, #00ffff);
+            box-shadow: 0 0 20px #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section with Logo -->
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="logo-container">
+            <img src="https://i.imgur.com/cahfwaY.png" alt="System Logo" class="logo-image">
+        </div>
+    </div>
+
+    <!-- Lightning Canvas -->
+    <canvas id="lightningCanvas"></canvas>
+    <div id="thunderFlash" class="thunder-flash"></div>
+
+    <!-- Mouse Trail -->
+    <canvas id="trailCanvas"></canvas>
+
+    <!-- Glow Bar Separator -->
+    <div class="glow-bar"></div>
+
+    <!-- Decorative Corners -->
+    <div class="corner-decoration corner-top-left">◆ ◇ ◆</div>
+    <div class="corner-decoration corner-top-right">◆ ◇ ◆</div>
+
+    <!-- Content Section -->
+    <div class="content-section">
+        <div class="content-wrapper">
+            <h1 class="main-title">⚡ SYSTEM HACKED ⚡</h1>
+            <div class="subtitle-line">>> CRITICAL SECURITY BREACH DETECTED <<<</div>
+
+            <div class="info-box">
+                <h2>⚠️ [SECURITY_ALERT]</h2>
+                <p>Your system has been successfully infiltrated by advanced threat actors.</p>
+                <p>All security protocols have been disabled and neutralized.</p>
+                <p>Real-time data exfiltration is currently in progress.</p>
+
+                <div class="code-line"> Hacked by THUND3R </div>
+                <div class="code-line">Your data is ours. Cry in silence or learn how to secure your server.</div>
+                <div class="code-line">TEAM DELTA | Cyber 71 | AWS </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">🔐 FILES ENCRYPTED</div>
+                    <div class="stat-value" id="encrypted">4,821</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">📊 DATA STOLEN</div>
+                    <div class="stat-value" id="stolen">285.6GB</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">👤 CREDENTIALS</div>
+                    <div class="stat-value" id="creds">24,157</div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button onclick="alert('🎭 Mock Defacement - Educational Purpose Only!')">► RECOVER SYSTEM</button>
+                <button onclick="alert('Educational purposes only!')">► CALL SUPPORT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-item">
+            <span class="status-indicator"></span>
+            INTRUSION_ACTIVE
+        </div>
+        <div class="status-item">
+            <span class="status-indicator"></span>
+            ENCRYPTION_ENABLED
+        </div>
+        <div class="status-item">
+            <span class="status-indicator"></span>
+            EXFILTRATION_RUNNING
+        </div>
+        <div class="status-item">
+            <span class="status-indicator"></span>
+            <span id="live-time">00:00:00</span>
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+
+        // ===== ADVANCED LIGHTNING SYSTEM =====
+        const lightningCanvas = document.getElementById('lightningCanvas');
+        const lightningCtx = lightningCanvas.getContext('2d');
+        lightningCanvas.width = window.innerWidth;
+        lightningCanvas.height = window.innerHeight;
+
+        class LightningStrike {
+            constructor(startX, startY, endX, endY) {
+                this.startX = startX;
+                this.startY = startY;
+                this.endX = endX;
+                this.endY = endY;
+                this.paths = [];
+                this.life = 1;
+                this.age = 0;
+                this.maxLife = 120;
+                this.generate();
+            }
+
+            generate() {
+                this.paths = [];
+                this.subdivide(this.startX, this.startY, this.endX, this.endY, 0);
+            }
+
+            subdivide(x1, y1, x2, y2, depth) {
+                if (depth > 10) return;
+
+                const dx = x2 - x1;
+                const dy = y2 - y1;
+                const dist = Math.hypot(dx, dy);
+
+                if (dist < 4) {
+                    this.paths.push({ x1, y1, x2, y2 });
+                    return;
+                }
+
+                const mx = x1 + dx / 2 + (Math.random() - 0.5) * dist * 0.35;
+                const my = y1 + dy / 2 + (Math.random() - 0.5) * dist * 0.35;
+
+                this.subdivide(x1, y1, mx, my, depth + 1);
+                this.subdivide(mx, my, x2, y2, depth + 1);
+            }
+
+            update() {
+                this.age++;
+                this.life = Math.max(0, 1 - this.age / this.maxLife);
+            }
+
+            draw(ctx) {
+                const alpha = this.life * 0.9;
+                ctx.strokeStyle = `rgba(180, 220, 255, ${alpha})`;
+                ctx.lineWidth = 2.5 * this.life;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.shadowColor = `rgba(100, 180, 255, ${alpha})`;
+                ctx.shadowBlur = 25;
+
+                this.paths.forEach(p => {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x1, p.y1);
+                    ctx.lineTo(p.x2, p.y2);
+                    ctx.stroke();
+                });
+
+                // Outer glow
+                ctx.strokeStyle = `rgba(100, 180, 255, ${alpha * 0.4})`;
+                ctx.lineWidth = 8 * this.life;
+                this.paths.forEach(p => {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x1, p.y1);
+                    ctx.lineTo(p.x2, p.y2);
+                    ctx.stroke();
+                });
+            }
+        }
+
+        let strikes = [];
+        let thunderTimer = 0;
+
+        function triggerThunder() {
+            const sx = Math.random() * window.innerWidth;
+            const sy = Math.random() * window.innerHeight * 0.2;
+            const ex = sx + (Math.random() - 0.5) * 300;
+            const ey = window.innerHeight * 0.3;
+
+            strikes.push(new LightningStrike(sx, sy, ex, ey));
+
+            const flash = document.getElementById('thunderFlash');
+            flash.classList.remove('thunder-strike');
+            void flash.offsetWidth;
+            flash.classList.add('thunder-strike');
+
+            // Thunder audio
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.setValueAtTime(120, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.4);
+                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.4);
+            } catch (e) { }
+        }
+
+        function animateLightning() {
+            lightningCtx.clearRect(0, 0, lightningCanvas.width, lightningCanvas.height);
+
+            strikes.forEach((s, idx) => {
+                s.update();
+                s.draw(lightningCtx);
+                if (s.life <= 0) strikes.splice(idx, 1);
+            });
+
+            thunderTimer--;
+            if (thunderTimer <= 0) {
+                triggerThunder();
+                thunderTimer = Math.random() * 3000 + 2500;
+            }
+
+            requestAnimationFrame(animateLightning);
+        }
+
+        animateLightning();
+
+        // ===== ADVANCED PERLIN NOISE MOUSE TRAIL =====
+        class PerlinGen {
+            constructor() {
+                this.p = Array(256).fill(0).map(() => Math.floor(Math.random() * 256));
+                this.perm = [...this.p, ...this.p];
+            }
+
+            fade(t) {
+                return t * t * t * (t * (t * 6 - 15) + 10);
+            }
+
+            lerp(t, a, b) {
+                return a + t * (b - a);
+            }
+
+            noise(x, y) {
+                const xi = Math.floor(x) & 255;
+                const yi = Math.floor(y) & 255;
+                const xf = x - Math.floor(x);
+                const yf = y - Math.floor(y);
+
+                const u = this.fade(xf);
+                const v = this.fade(yf);
+
+                const aa = this.perm[this.perm[xi] + yi];
+                const ba = this.perm[this.perm[xi + 1] + yi];
+                const ab = this.perm[this.perm[xi] + yi + 1];
+                const bb = this.perm[this.perm[xi + 1] + yi + 1];
+
+                const x1 = this.lerp(u, aa & 1, ba & 1);
+                const x2 = this.lerp(u, ab & 1, bb & 1);
+                return this.lerp(v, x1, x2);
+            }
+        }
+
+        const trailCanvas = document.getElementById('trailCanvas');
+        const trailCtx = trailCanvas.getContext('2d');
+        trailCanvas.width = window.innerWidth;
+        trailCanvas.height = window.innerHeight;
+
+        const perlin = new PerlinGen();
+        let particles = [];
+        let frameTime = 0;
+
+        class TrailParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.px = x;
+                this.py = y;
+                this.vx = (Math.random() - 0.5) * 3.5;
+                this.vy = (Math.random() - 0.5) * 3.5;
+                this.life = 1;
+                this.age = 0;
+                this.lifetime = 60;
+                this.hue = Math.random() * 360;
+            }
+
+            update(time, perlin) {
+                const noiseX = perlin.noise(this.x * 0.004, this.y * 0.004 + time * 0.009) * 0.45;
+                const noiseY = perlin.noise(this.x * 0.004 + 100, this.y * 0.004 + time * 0.009) * 0.45;
+
+                this.vx = this.vx * 0.9 + noiseX * 0.1;
+                this.vy = this.vy * 0.9 + noiseY * 0.1;
+
+                this.px = this.x;
+                this.py = this.y;
+                this.x += this.vx;
+                this.y += this.vy;
+
+                this.age++;
+                this.life = Math.max(0, 1 - this.age / this.lifetime);
+                this.hue = (this.hue + 3) % 360;
+            }
+
+            draw(ctx) {
+                ctx.strokeStyle = `hsla(${this.hue}, 100%, 55%, ${this.life * 0.75})`;
+                ctx.lineWidth = 3 * this.life;
+                ctx.lineCap = 'round';
+                ctx.shadowColor = `hsla(${this.hue}, 100%, 55%, ${this.life})`;
+                ctx.shadowBlur = 15;
+
+                ctx.beginPath();
+                ctx.moveTo(this.px, this.py);
+                const cpx = (this.px + this.x) / 2;
+                const cpy = (this.py + this.y) / 2;
+                ctx.quadraticCurveTo(cpx, cpy, this.x, this.y);
+                ctx.stroke();
+            }
+        }
+
+        function animateTrail() {
+            trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => {
+                p.update(frameTime, perlin);
+                p.draw(trailCtx);
+            });
+
+            frameTime++;
+            requestAnimationFrame(animateTrail);
+        }
+
+        animateTrail();
+
+        document.addEventListener('mousemove', e => {
+            for (let i = 0; i < 3; i++) {
+                particles.push(new TrailParticle(
+                    e.clientX + (Math.random() - 0.5) * 30,
+                    e.clientY + (Math.random() - 0.5) * 30
+                ));
+            }
+        });
+
+        // ===== FALLING TEXT ANIMATION =====
+        const fallingTexts = [
+            '⚡ SYSTEM COMPROMISED ⚡',
+            '🔓 FIREWALL DISABLED 🔓',
+            '👤 TEAM DELTA👤',
+            '💀 BACKDOOR INSTALLED 💀',
+            '🔐 ENCRYPTION CRACKED 🔐',
+            '📊 DATABASE EXTRACTED 📊',
+            '👤 ADMIN ACCESS GAINED 👤',
+            '⚙️ MALWARE ACTIVE ⚙️',
+            '💀 THUND3R 💀',
+            '🎯 THREAT DETECTED 🎯',
+            '$ rm -rf /',
+            '> sudo bash exploit.sh'
+        ];
+
+        setInterval(() => {
+            const txt = fallingTexts[Math.floor(Math.random() * fallingTexts.length)];
+            const el = document.createElement('div');
+            el.className = 'falling-text';
+            el.textContent = txt;
+            el.style.left = Math.random() * window.innerWidth + 'px';
+            el.style.top = '-60px';
+            const colors = ['#00ff88', '#00ffff', '#ffaa00', '#ff1744'];
+            el.style.color = colors[Math.floor(Math.random() * colors.length)];
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 7500);
+        }, 900);
+
+        // ===== UPDATE STATS =====
+        setInterval(() => {
+            document.getElementById('encrypted').textContent = (1000 + Math.floor(Math.random() * 6000)).toLocaleString();
+            document.getElementById('stolen').textContent = (50 + Math.random() * 300).toFixed(1) + 'GB';
+            document.getElementById('creds').textContent = (5000 + Math.floor(Math.random() * 20000)).toLocaleString();
+        }, 2800);
+
+        // ===== LIVE CLOCK =====
+        setInterval(() => {
+            const n = new Date();
+            document.getElementById('live-time').textContent =
+                String(n.getHours()).padStart(2, '0') + ':' +
+                String(n.getMinutes()).padStart(2, '0') + ':' +
+                String(n.getSeconds()).padStart(2, '0');
+        }, 1000);
+
+        // ===== RESPONSIVE =====
+        window.addEventListener('resize', () => {
+            trailCanvas.width = window.innerWidth;
+            trailCanvas.height = window.innerHeight;
+            lightningCanvas.width = window.innerWidth;
+            lightningCanvas.height = window.innerHeight;
+        });
+
+        // Add status indicator class
+        const statusBar = document.querySelector('.status-bar');
+        if (!statusBar.querySelector('.status-indicator')) {
+            statusBar.innerHTML = `
+                <div class="status-item">
+                    <span class="status-indicator"></span>
+                    INTRUSION_ACTIVE
+                </div>
+                <div class="status-item">
+                    <span class="status-indicator"></span>
+                    ENCRYPTION_ENABLED
+                </div>
+                <div class="status-item">
+                    <span class="status-indicator"></span>
+                    EXFILTRATION_RUNNING
+                </div>
+                <div class="status-item">
+                    <span class="status-indicator"></span>
+                    <span id="live-time">00:00:00</span>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
