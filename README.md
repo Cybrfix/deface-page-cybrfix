@@ -1,6 +1,4 @@
-# Deface Page by Cybrfix (Demo / Testing Only)
-
-> **Educational purpose only.** This is a *simulated* defacement page built for cybersecurity learning, security-awareness demos and testing on your own systems. No real system was hacked. Use it only on websites you own or have written permission to test.
+# Deface Page by Cybrfix
 
 An advanced, interactive cybersecurity-themed webpage in a **single HTML file** - dark hacker style, live visual effects and animated status trackers.
 
